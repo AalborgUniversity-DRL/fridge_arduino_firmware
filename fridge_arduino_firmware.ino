@@ -20,7 +20,7 @@ void setup()
   emon.voltage(1, 144.9, 1.8);// Voltage: input pin, calibration, phase_shift
   emon.current(0, 2.07);// Current: input pin, calibration.
   // Run VI calculation once and disregard the first (faulty) reading
-  emon.calcVI(20,2000);
+  emon.calcVI(5,2000);
   
   // Set up the temperature sensors
   roomTempSensor.begin();
@@ -30,14 +30,14 @@ void setup()
 void loop()
 {
   // Calculate all. No.of crossings, time-out
-  emon.calcVI(20,2000);
+  emon.calcVI(5,2000);
   
-  // Request the temp sensors to convert
-  roomTempSensor.requestTemperatures();
-  fridgeTempSensor.requestTemperatures();
-  delay(100);
-  roomTemp = roomTempSensor.getTempCByIndex(0);
-  fridgeTemp = fridgeTempSensor.getTempCByIndex(0);
+  // // Request the temp sensors to convert
+  // roomTempSensor.requestTemperatures();
+  // fridgeTempSensor.requestTemperatures();
+  // delay(20);
+  // roomTemp = roomTempSensor.getTempCByIndex(0);
+  // fridgeTemp = fridgeTempSensor.getTempCByIndex(0);
   
   // Print the node number
   Serial.print("1 ");
@@ -46,11 +46,12 @@ void loop()
   Serial.print(emon.apparentPower); Serial.print(' ');
   Serial.print(emon.Vrms); Serial.print(' ');
   Serial.print(emon.Irms); Serial.print(' ');
-  Serial.print(emon.powerFactor); Serial.print(' ');
-  // Print Temperatures
-  Serial.print(roomTemp); Serial.print(' ');
-  Serial.print(fridgeTemp); Serial.println(' ');
+  Serial.print(emon.powerFactor); Serial.println(' ');
+  // // Print Temperatures
+  // Serial.print(roomTemp); Serial.print(' ');
+  // Serial.print(fridgeTemp); Serial.println(' ');
   
-  // Wait a while
-  delay(10000);
+  // // Wait a while
+  // delay(10000);
+  // don't: I'm running a high speed test
 }
